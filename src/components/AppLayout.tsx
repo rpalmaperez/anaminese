@@ -110,7 +110,7 @@ export default function AppLayout({ children, title, showBackButton = false, bac
 
               {/* Logo/Title */}
               <div className="flex items-center gap-3">
-                <Link href="/dashboard" className="flex items-center gap-2">
+                <Link href="https://hidroginastica-arpa.base44.app/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                   <div className="w-8 h-8 flex items-center justify-center">
                     <img src="/arpa-logo.svg" alt="ARPA Logo" className="h-8 w-8" />
                   </div>
