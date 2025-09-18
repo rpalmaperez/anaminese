@@ -21,7 +21,7 @@ const supabaseAuth = createClient(supabaseUrl, process.env.NEXT_PUBLIC_SUPABASE_
 async function confirmUserEmail() {
   console.log('\n📧 Confirmando email do usuário...');
   
-  const userEmail = 'admin@exemplo.com';
+  const userEmail = 'heloisahs51@gmail.com';
   
   try {
     // 1. Buscar usuário por email
@@ -72,7 +72,7 @@ async function confirmUserEmail() {
     
     const { data: loginData, error: loginError } = await supabaseAuth.auth.signInWithPassword({
       email: userEmail,
-      password: 'admin123'
+      password: 'senha123' // Senha padrão para professores
     });
     
     if (loginError) {
@@ -105,7 +105,7 @@ async function confirmUserEmail() {
     console.log('\n🎉 USUÁRIO PRONTO PARA LOGIN!');
     console.log('\n📋 CREDENCIAIS:');
     console.log('Email:', userEmail);
-    console.log('Senha: admin123');
+    console.log('Senha: senha123');
     console.log('\n💡 Agora você pode fazer login na aplicação!');
     console.log('🌐 Acesse: http://localhost:3000/login');
     
