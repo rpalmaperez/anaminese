@@ -129,45 +129,46 @@ function DashboardPage() {
     <AppLayout title="Dashboard">
       <div className="space-y-6">
         {/* Welcome Section */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-1 sm:mb-2">
               Bem-vindo, {user?.name}!
             </h2>
-            <p className="text-gray-600">
-              Aqui esta um resumo das suas atividades recentes.
+            <p className="text-sm sm:text-base text-gray-600">
+              Aqui está um resumo das suas atividades recentes.
             </p>
           </div>
           
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <Button
               variant="outline"
+              size="sm"
               onClick={() => setShowSyncDetails(!showSyncDetails)}
-              className="flex items-center gap-2"
+              className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm"
             >
-              <Activity className="h-4 w-4" />
-              Status
+              <Activity className="h-3 w-3 sm:h-4 sm:w-4" />
+              <span className="hidden sm:inline">Status</span>
+              <span className="sm:hidden">Status</span>
             </Button>
-
           </div>
         </div>
         
         {/* Sync Status */}
         {showSyncDetails && (
-          <SyncStatus showDetails={true} className="mb-6" />
+          <SyncStatus showDetails={true} className="mb-4 sm:mb-6" />
         )}
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
+              <CardTitle className="text-xs sm:text-sm font-medium">
                 Total de Alunos
               </CardTitle>
-              <Users className="h-4 w-4 text-blue-600" />
+              <Users className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
+              <div className="text-lg sm:text-2xl font-bold">
                 {loading ? '...' : stats.totalStudents}
               </div>
               <p className="text-xs text-gray-500">
@@ -178,13 +179,13 @@ function DashboardPage() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
+              <CardTitle className="text-xs sm:text-sm font-medium">
                 Anamneses Ativas
               </CardTitle>
-              <CheckCircle className="h-4 w-4 text-green-600" />
+              <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-green-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
+              <div className="text-lg sm:text-2xl font-bold">
                 {loading ? '...' : stats.activeAnamneses}
               </div>
               <p className="text-xs text-gray-500">
@@ -195,91 +196,88 @@ function DashboardPage() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
+              <CardTitle className="text-xs sm:text-sm font-medium">
                 Expirando em Breve
               </CardTitle>
-              <Clock className="h-4 w-4 text-yellow-600" />
+              <Clock className="h-3 w-3 sm:h-4 sm:w-4 text-yellow-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
+              <div className="text-lg sm:text-2xl font-bold">
                 {loading ? '...' : stats.expiringAnamneses}
               </div>
               <p className="text-xs text-gray-500">
-                Proximos 30 dias
+                Próximos 30 dias
               </p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
+              <CardTitle className="text-xs sm:text-sm font-medium">
                 Anamneses Expiradas
               </CardTitle>
-              <AlertTriangle className="h-4 w-4 text-red-600" />
+              <AlertTriangle className="h-3 w-3 sm:h-4 sm:w-4 text-red-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
+              <div className="text-lg sm:text-2xl font-bold">
                 {loading ? '...' : stats.expiredAnamneses}
               </div>
               <p className="text-xs text-gray-500">
-                {stats.expiredAnamneses > 0 ? 'Requerem atencao' : 'Nenhuma expirada'}
+                {stats.expiredAnamneses > 0 ? 'Requerem atenção' : 'Nenhuma expirada'}
               </p>
             </CardContent>
           </Card>
         </div>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-1 gap-6">
+        <div className="grid grid-cols-1 gap-4 sm:gap-6">
           <Card>
             <CardHeader>
-              <CardTitle>Ações Rápidas</CardTitle>
-              <CardDescription>
+              <CardTitle className="text-base sm:text-lg">Ações Rápidas</CardTitle>
+              <CardDescription className="text-sm">
                 Acesse rapidamente as funcionalidades mais utilizadas
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                 <Button 
                   variant="outline"
-                  className="h-20 flex flex-col items-center justify-center space-y-2"
+                  className="h-16 sm:h-20 flex flex-col items-center justify-center space-y-1 sm:space-y-2 text-xs sm:text-sm"
                   onClick={() => router.push('/students/new')}
                 >
-                  <Users className="h-6 w-6 text-blue-600" />
-                  <span>Cadastrar Aluno</span>
+                  <Users className="h-4 w-4 sm:h-6 sm:w-6 text-blue-600" />
+                  <span className="text-center leading-tight">Cadastrar Aluno</span>
                 </Button>
                 
                 <Button 
                   variant="outline" 
-                  className="h-20 flex flex-col items-center justify-center space-y-2"
+                  className="h-16 sm:h-20 flex flex-col items-center justify-center space-y-1 sm:space-y-2 text-xs sm:text-sm"
                   onClick={() => router.push('/anamneses/new')}
                 >
-                  <FileText className="h-6 w-6 text-green-600" />
-                  <span>Nova Anamnese</span>
+                  <FileText className="h-4 w-4 sm:h-6 sm:w-6 text-green-600" />
+                  <span className="text-center leading-tight">Nova Anamnese</span>
                 </Button>
                 
                 <Button 
                   variant="outline" 
-                  className="h-20 flex flex-col items-center justify-center space-y-2"
+                  className="h-16 sm:h-20 flex flex-col items-center justify-center space-y-1 sm:space-y-2 text-xs sm:text-sm"
                   onClick={() => router.push('/students')}
                 >
-                  <Search className="h-6 w-6 text-orange-600" />
-                  <span>Buscar Alunos</span>
+                  <Search className="h-4 w-4 sm:h-6 sm:w-6 text-orange-600" />
+                  <span className="text-center leading-tight">Buscar Alunos</span>
                 </Button>
                 
                 <Button 
                   variant="outline" 
-                  className="h-20 flex flex-col items-center justify-center space-y-2"
+                  className="h-16 sm:h-20 flex flex-col items-center justify-center space-y-1 sm:space-y-2 text-xs sm:text-sm"
                   onClick={() => router.push('/history')}
                 >
-                  <History className="h-6 w-6 text-purple-600" />
-                  <span>Histórico</span>
+                  <History className="h-4 w-4 sm:h-6 sm:w-6 text-purple-600" />
+                  <span className="text-center leading-tight">Histórico</span>
                 </Button>
-
               </div>
             </CardContent>
           </Card>
-
-
         </div>
 
 

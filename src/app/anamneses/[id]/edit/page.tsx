@@ -303,60 +303,60 @@ export default function EditAnamnesePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gray-50 p-3 sm:p-6">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <div className="flex items-center gap-4 mb-6">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
           <Button
             variant="outline"
             onClick={() => router.push(`/anamneses/${id}`)}
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 text-xs sm:text-sm py-2 sm:py-2.5"
           >
-            <ArrowLeft className="h-4 w-4" />
+            <ArrowLeft className="h-3 w-3 sm:h-4 sm:w-4" />
             Voltar
           </Button>
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Editar Anamnese</h1>
-            <p className="text-gray-600 mt-1">
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">Editar Anamnese</h1>
+            <p className="text-gray-600 mt-1 text-sm sm:text-base">
               Atualize as informações da anamnese
             </p>
           </div>
         </div>
 
         {error && (
-          <Alert variant="destructive" className="mb-6">
-            <AlertCircle className="h-4 w-4" />
-            <AlertDescription>{error}</AlertDescription>
+          <Alert variant="destructive" className="mb-4 sm:mb-6">
+            <AlertCircle className="h-3 w-3 sm:h-4 sm:w-4" />
+            <AlertDescription className="text-xs sm:text-sm">{error}</AlertDescription>
           </Alert>
         )}
 
         {success && (
-          <Alert className="mb-6 border-green-200 bg-green-50">
-            <CheckCircle className="h-4 w-4 text-green-600" />
-            <AlertDescription className="text-green-800">{success}</AlertDescription>
+          <Alert className="mb-4 sm:mb-6 border-green-200 bg-green-50">
+            <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-green-600" />
+            <AlertDescription className="text-green-800 text-xs sm:text-sm">{success}</AlertDescription>
           </Alert>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
           {/* Informações Básicas */}
           <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <FileText className="h-5 w-5" />
+            <CardHeader className="px-4 sm:px-6 py-3 sm:py-4">
+              <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+                <FileText className="h-4 w-4 sm:h-5 sm:w-5" />
                 Informações Básicas
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+            <CardContent className="px-4 sm:px-6 pb-4 sm:pb-6 space-y-3 sm:space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+                <div className="sm:col-span-2 lg:col-span-1">
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                     Aluno *
                   </label>
                   <Select
                     value={formData.student_id}
                     onValueChange={(value) => handleInputChange('student_id', value)}
                   >
-                    <SelectTrigger className={errors.student_id ? 'border-red-500' : ''}>
+                    <SelectTrigger className={`text-xs sm:text-sm ${errors.student_id ? 'border-red-500' : ''}`}>
                       <SelectValue placeholder="Selecione um aluno">
                         {formData.student_id && students.length > 0 ? (
                           (() => {
@@ -368,19 +368,19 @@ export default function EditAnamnesePage() {
                     </SelectTrigger>
                     <SelectContent>
                       {students.map((student) => (
-                        <SelectItem key={student.id} value={student.id}>
+                        <SelectItem key={student.id} value={student.id} className="text-xs sm:text-sm">
                           {student.name} {student.email && `(${student.email})`}
                         </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
                   {errors.student_id && (
-                    <p className="text-red-500 text-sm mt-1">{errors.student_id}</p>
+                    <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.student_id}</p>
                   )}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                     Título *
                   </label>
                   <Input
@@ -389,21 +389,22 @@ export default function EditAnamnesePage() {
                     onChange={(e) => handleInputChange('title', e.target.value)}
                     placeholder="Ex: Anamnese Inicial - Janeiro 2024"
                     error={errors.title}
+                    className="text-xs sm:text-sm"
                   />
                   {errors.title && (
-                    <p className="text-red-500 text-sm mt-1">{errors.title}</p>
+                    <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.title}</p>
                   )}
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                <div className="sm:col-span-2 lg:col-span-1">
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                     Status *
                   </label>
                   <Select
                     value={formData.status}
                     onValueChange={(value) => handleInputChange('status', value)}
                   >
-                    <SelectTrigger>
+                    <SelectTrigger className="text-xs sm:text-sm">
                       <SelectValue>
                         {formData.status === 'draft' && 'Rascunho'}
                         {formData.status === 'completed' && 'Concluída'}
@@ -412,16 +413,16 @@ export default function EditAnamnesePage() {
                       </SelectValue>
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="draft">Rascunho</SelectItem>
-                      <SelectItem value="completed">Concluída</SelectItem>
-                      <SelectItem value="expired">Expirada</SelectItem>
+                      <SelectItem value="draft" className="text-xs sm:text-sm">Rascunho</SelectItem>
+                      <SelectItem value="completed" className="text-xs sm:text-sm">Concluída</SelectItem>
+                      <SelectItem value="expired" className="text-xs sm:text-sm">Expirada</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                   Observações Gerais
                 </label>
                 <textarea
@@ -429,7 +430,7 @@ export default function EditAnamnesePage() {
                   onChange={(e) => handleInputChange('notes', e.target.value)}
                   placeholder="Observações gerais sobre a anamnese..."
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-2 sm:px-3 py-2 text-xs sm:text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                 />
               </div>
             </CardContent>
@@ -437,12 +438,12 @@ export default function EditAnamnesePage() {
 
           {/* Histórico Médico */}
           <Card>
-            <CardHeader>
-              <CardTitle>Histórico Médico</CardTitle>
+            <CardHeader className="px-4 sm:px-6 py-3 sm:py-4">
+              <CardTitle className="text-base sm:text-lg">Histórico Médico</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="px-4 sm:px-6 pb-4 sm:pb-6 space-y-3 sm:space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                   Condições Médicas
                 </label>
                 <textarea
@@ -450,13 +451,13 @@ export default function EditAnamnesePage() {
                   onChange={(e) => handleInputChange('medical_conditions', e.target.value)}
                   placeholder="Descreva condições médicas existentes..."
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-2 sm:px-3 py-2 text-xs sm:text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                 />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                     Medicamentos em Uso
                   </label>
                   <textarea
@@ -464,12 +465,12 @@ export default function EditAnamnesePage() {
                     onChange={(e) => handleInputChange('medications', e.target.value)}
                     placeholder="Liste medicamentos e dosagens..."
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-2 sm:px-3 py-2 text-xs sm:text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                     Alergias
                   </label>
                   <textarea
@@ -477,14 +478,14 @@ export default function EditAnamnesePage() {
                     onChange={(e) => handleInputChange('allergies', e.target.value)}
                     placeholder="Descreva alergias conhecidas..."
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-2 sm:px-3 py-2 text-xs sm:text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                   />
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                     Cirurgias Anteriores
                   </label>
                   <textarea
@@ -492,12 +493,12 @@ export default function EditAnamnesePage() {
                     onChange={(e) => handleInputChange('surgeries', e.target.value)}
                     placeholder="Descreva cirurgias realizadas..."
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-2 sm:px-3 py-2 text-xs sm:text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                     Internações
                   </label>
                   <textarea
@@ -505,7 +506,7 @@ export default function EditAnamnesePage() {
                     onChange={(e) => handleInputChange('hospitalizations', e.target.value)}
                     placeholder="Descreva internações anteriores..."
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-2 sm:px-3 py-2 text-xs sm:text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                   />
                 </div>
               </div>
@@ -514,12 +515,12 @@ export default function EditAnamnesePage() {
 
           {/* Histórico Familiar */}
           <Card>
-            <CardHeader>
-              <CardTitle>Histórico Familiar</CardTitle>
+            <CardHeader className="px-4 sm:px-6 py-3 sm:py-4">
+              <CardTitle className="text-base sm:text-lg">Histórico Familiar</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="px-4 sm:px-6 pb-4 sm:pb-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                   Histórico Médico Familiar
                 </label>
                 <textarea
@@ -527,7 +528,7 @@ export default function EditAnamnesePage() {
                   onChange={(e) => handleInputChange('family_medical_history', e.target.value)}
                   placeholder="Descreva histórico médico de familiares..."
                   rows={4}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-2 sm:px-3 py-2 text-xs sm:text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                 />
               </div>
             </CardContent>
@@ -535,13 +536,13 @@ export default function EditAnamnesePage() {
 
           {/* Estilo de Vida */}
           <Card>
-            <CardHeader>
-              <CardTitle>Estilo de Vida</CardTitle>
+            <CardHeader className="px-4 sm:px-6 py-3 sm:py-4">
+              <CardTitle className="text-base sm:text-lg">Estilo de Vida</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <CardContent className="px-4 sm:px-6 pb-4 sm:pb-6 space-y-3 sm:space-y-4">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                     Atividade Física
                   </label>
                   <textarea
@@ -549,12 +550,12 @@ export default function EditAnamnesePage() {
                     onChange={(e) => handleInputChange('physical_activity', e.target.value)}
                     placeholder="Descreva atividades físicas praticadas..."
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-2 sm:px-3 py-2 text-xs sm:text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                     Tipo de Dieta
                   </label>
                   <textarea
@@ -562,14 +563,14 @@ export default function EditAnamnesePage() {
                     onChange={(e) => handleInputChange('diet_type', e.target.value)}
                     placeholder="Descreva tipo de dieta..."
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-2 sm:px-3 py-2 text-xs sm:text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                   />
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                     Qualidade do Sono
                   </label>
                   <textarea
@@ -577,12 +578,12 @@ export default function EditAnamnesePage() {
                     onChange={(e) => handleInputChange('sleep_quality', e.target.value)}
                     placeholder="Descreva qualidade do sono..."
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-2 sm:px-3 py-2 text-xs sm:text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                     Hábitos de Fumo
                   </label>
                   <textarea
@@ -590,12 +591,12 @@ export default function EditAnamnesePage() {
                     onChange={(e) => handleInputChange('smoking_habits', e.target.value)}
                     placeholder="Descreva hábitos de fumo..."
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-2 sm:px-3 py-2 text-xs sm:text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                   />
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                <div className="sm:col-span-2 lg:col-span-1">
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                     Consumo de Álcool
                   </label>
                   <textarea
@@ -603,22 +604,21 @@ export default function EditAnamnesePage() {
                     onChange={(e) => handleInputChange('alcohol_consumption', e.target.value)}
                     placeholder="Descreva consumo de álcool..."
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-2 sm:px-3 py-2 text-xs sm:text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                   />
                 </div>
               </div>
             </CardContent>
           </Card>
 
-
           {/* Observações Adicionais */}
           <Card>
-            <CardHeader>
-              <CardTitle>Observações Adicionais</CardTitle>
+            <CardHeader className="px-4 sm:px-6 py-3 sm:py-4">
+              <CardTitle className="text-base sm:text-lg">Observações Adicionais</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="px-4 sm:px-6 pb-4 sm:pb-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                   Observações Adicionais
                 </label>
                 <textarea
@@ -626,35 +626,36 @@ export default function EditAnamnesePage() {
                   onChange={(e) => handleInputChange('additional_notes', e.target.value)}
                   placeholder="Adicione qualquer informação adicional relevante..."
                   rows={4}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-2 sm:px-3 py-2 text-xs sm:text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                 />
               </div>
             </CardContent>
           </Card>
 
           {/* Actions */}
-          <div className="flex justify-end gap-4">
+          <div className="flex flex-col sm:flex-row justify-end gap-3 sm:gap-4">
             <Button
               type="button"
               variant="outline"
               onClick={() => router.push(`/anamneses/${id}`)}
               disabled={loading}
+              className="text-xs sm:text-sm py-2 sm:py-2.5"
             >
               Cancelar
             </Button>
             <Button
               type="submit"
               disabled={loading}
-              className="flex items-center gap-2"
+              className="flex items-center justify-center gap-2 text-xs sm:text-sm py-2 sm:py-2.5"
             >
               {loading ? (
                 <>
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                  <div className="animate-spin rounded-full h-3 w-3 sm:h-4 sm:w-4 border-b-2 border-white"></div>
                   Salvando...
                 </>
               ) : (
                 <>
-                  <Save className="h-4 w-4" />
+                  <Save className="h-3 w-3 sm:h-4 sm:w-4" />
                   Salvar Alterações
                 </>
               )}

@@ -82,11 +82,95 @@
 /* Mobile optimizations */
 @media (max-width: 768px) {
   .form-section {
-    @apply p-4;
+    @apply p-3;
   }
   
   .mobile-nav {
     @apply fixed bottom-0 left-0 right-0 bg-card border-t border-border;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  /* Better touch targets for mobile */
+  button, a, input, select, textarea {
+    min-height: 44px;
+  }
+  
+  /* Improved spacing for mobile forms */
+  .space-y-4 > * + * {
+    @apply mt-3;
+  }
+  
+  /* Better mobile card spacing */
+  .grid {
+    @apply gap-3;
+  }
+  
+  /* Mobile-specific header adjustments */
+  header {
+    @apply sticky top-0 z-30;
+  }
+  
+  /* Prevent horizontal scroll on mobile */
+  body {
+    overflow-x: hidden;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+  .form-section {
+    @apply p-2;
+  }
+  
+  /* Smaller gaps for very small screens */
+  .space-y-4 > * + * {
+    @apply mt-2;
+  }
+  
+  .grid {
+    @apply gap-2;
+  }
+  
+  /* Adjust font sizes for small screens */
+  h1 {
+    @apply text-lg;
+  }
+  
+  h2 {
+    @apply text-base;
+  }
+  
+  h3 {
+    @apply text-sm;
+  }
+}
+
+/* Safe area support for devices with notches */
+@supports (padding: max(0px)) {
+  .safe-area-inset-bottom {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+  
+  .mobile-nav {
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* Improved focus states for accessibility */
+@media (prefers-reduced-motion: no-preference) {
+  * {
+    scroll-behavior: smooth;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .border {
+    @apply border-2;
+  }
+  
+  button, a {
+    @apply border border-current;
   }
 }
 

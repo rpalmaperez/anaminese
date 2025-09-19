@@ -173,65 +173,67 @@ export default function UserProfileModal({ isOpen, onClose }: UserProfileModalPr
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <Card className="w-full max-w-md max-h-[90vh] overflow-y-auto">
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-          <CardTitle className="text-xl font-semibold">Meu Perfil</CardTitle>
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-2 sm:p-4">
+      <Card className="w-full max-w-sm sm:max-w-md max-h-[95vh] sm:max-h-[90vh] overflow-y-auto">
+        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3 sm:pb-4 px-4 sm:px-6 pt-4 sm:pt-6">
+          <CardTitle className="text-lg sm:text-xl font-semibold">Meu Perfil</CardTitle>
           <Button
             variant="ghost"
             size="sm"
             onClick={onClose}
-            className="h-8 w-8 p-0"
+            className="h-8 w-8 p-0 shrink-0"
           >
             <X className="h-4 w-4" />
           </Button>
         </CardHeader>
         
-        <CardContent className="space-y-6">
+        <CardContent className="space-y-4 sm:space-y-6 px-4 sm:px-6 pb-4 sm:pb-6">
           {/* Tabs */}
           <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg">
             <button
               onClick={() => setActiveTab('profile')}
-              className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-md text-sm font-medium transition-colors ${
+              className={`flex-1 flex items-center justify-center gap-1 sm:gap-2 py-2 px-2 sm:px-3 rounded-md text-xs sm:text-sm font-medium transition-colors ${
                 activeTab === 'profile'
                   ? 'bg-white text-blue-600 shadow-sm'
                   : 'text-gray-600 hover:text-gray-900'
               }`}
             >
-              <User className="h-4 w-4" />
-              Dados Pessoais
+              <User className="h-3 w-3 sm:h-4 sm:w-4" />
+              <span className="hidden xs:inline">Dados Pessoais</span>
+              <span className="xs:hidden">Dados</span>
             </button>
             <button
               onClick={() => setActiveTab('password')}
-              className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-md text-sm font-medium transition-colors ${
+              className={`flex-1 flex items-center justify-center gap-1 sm:gap-2 py-2 px-2 sm:px-3 rounded-md text-xs sm:text-sm font-medium transition-colors ${
                 activeTab === 'password'
                   ? 'bg-white text-blue-600 shadow-sm'
                   : 'text-gray-600 hover:text-gray-900'
               }`}
             >
-              <Lock className="h-4 w-4" />
-              Alterar Senha
+              <Lock className="h-3 w-3 sm:h-4 sm:w-4" />
+              <span className="hidden xs:inline">Alterar Senha</span>
+              <span className="xs:hidden">Senha</span>
             </button>
           </div>
 
           {/* Alerts */}
           {error && (
             <Alert variant="destructive">
-              <AlertDescription>{error}</AlertDescription>
+              <AlertDescription className="text-sm">{error}</AlertDescription>
             </Alert>
           )}
           
           {success && (
             <Alert className="border-green-200 bg-green-50">
-              <AlertDescription className="text-green-800">{success}</AlertDescription>
+              <AlertDescription className="text-green-800 text-sm">{success}</AlertDescription>
             </Alert>
           )}
 
           {/* Profile Tab */}
           {activeTab === 'profile' && (
-            <form onSubmit={handleProfileSubmit} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="name">Nome Completo</Label>
+            <form onSubmit={handleProfileSubmit} className="space-y-3 sm:space-y-4">
+              <div className="space-y-1 sm:space-y-2">
+                <Label htmlFor="name" className="text-sm">Nome Completo</Label>
                 <Input
                   id="name"
                   type="text"
@@ -239,11 +241,12 @@ export default function UserProfileModal({ isOpen, onClose }: UserProfileModalPr
                   onChange={(e) => setProfileData({ ...profileData, name: e.target.value })}
                   required
                   disabled={loading}
+                  className="text-sm"
                 />
               </div>
               
-              <div className="space-y-2">
-                <Label htmlFor="email">E-mail</Label>
+              <div className="space-y-1 sm:space-y-2">
+                <Label htmlFor="email" className="text-sm">E-mail</Label>
                 <Input
                   id="email"
                   type="email"
@@ -251,35 +254,38 @@ export default function UserProfileModal({ isOpen, onClose }: UserProfileModalPr
                   onChange={(e) => setProfileData({ ...profileData, email: e.target.value })}
                   required
                   disabled={loading}
+                  className="text-sm"
                 />
               </div>
               
-              <div className="space-y-2">
-                <Label htmlFor="role">Função</Label>
+              <div className="space-y-1 sm:space-y-2">
+                <Label htmlFor="role" className="text-sm">Função</Label>
                 <Input
                   id="role"
                   type="text"
                   value={profileData.role}
                   disabled
-                  className="bg-gray-50 text-gray-500"
+                  className="bg-gray-50 text-gray-500 text-sm"
                 />
                 <p className="text-xs text-gray-500">A função não pode ser alterada</p>
               </div>
               
               <Button
                 type="submit"
-                className="w-full"
+                className="w-full text-sm"
                 disabled={loading}
               >
                 {loading ? (
                   <div className="flex items-center gap-2">
                     <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                    Salvando...
+                    <span className="hidden sm:inline">Salvando...</span>
+                    <span className="sm:hidden">Salvando...</span>
                   </div>
                 ) : (
                   <div className="flex items-center gap-2">
-                    <Save className="h-4 w-4" />
-                    Salvar Alterações
+                    <Save className="h-3 w-3 sm:h-4 sm:w-4" />
+                    <span className="hidden sm:inline">Salvar Alterações</span>
+                    <span className="sm:hidden">Salvar</span>
                   </div>
                 )}
               </Button>
@@ -288,9 +294,9 @@ export default function UserProfileModal({ isOpen, onClose }: UserProfileModalPr
 
           {/* Password Tab */}
           {activeTab === 'password' && (
-            <form onSubmit={handlePasswordSubmit} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="currentPassword">Senha Atual</Label>
+            <form onSubmit={handlePasswordSubmit} className="space-y-3 sm:space-y-4">
+              <div className="space-y-1 sm:space-y-2">
+                <Label htmlFor="currentPassword" className="text-sm">Senha Atual</Label>
                 <div className="relative">
                   <Input
                     id="currentPassword"
@@ -299,7 +305,7 @@ export default function UserProfileModal({ isOpen, onClose }: UserProfileModalPr
                     onChange={(e) => setPasswordData({ ...passwordData, currentPassword: e.target.value })}
                     required
                     disabled={loading}
-                    className="pr-10"
+                    className="pr-10 text-sm"
                   />
                   <button
                     type="button"
@@ -311,8 +317,8 @@ export default function UserProfileModal({ isOpen, onClose }: UserProfileModalPr
                 </div>
               </div>
               
-              <div className="space-y-2">
-                <Label htmlFor="newPassword">Nova Senha</Label>
+              <div className="space-y-1 sm:space-y-2">
+                <Label htmlFor="newPassword" className="text-sm">Nova Senha</Label>
                 <div className="relative">
                   <Input
                     id="newPassword"
@@ -321,7 +327,7 @@ export default function UserProfileModal({ isOpen, onClose }: UserProfileModalPr
                     onChange={(e) => setPasswordData({ ...passwordData, newPassword: e.target.value })}
                     required
                     disabled={loading}
-                    className="pr-10"
+                    className="pr-10 text-sm"
                     minLength={6}
                   />
                   <button
@@ -335,8 +341,8 @@ export default function UserProfileModal({ isOpen, onClose }: UserProfileModalPr
                 <p className="text-xs text-gray-500">Mínimo de 6 caracteres</p>
               </div>
               
-              <div className="space-y-2">
-                <Label htmlFor="confirmPassword">Confirmar Nova Senha</Label>
+              <div className="space-y-1 sm:space-y-2">
+                <Label htmlFor="confirmPassword" className="text-sm">Confirmar Nova Senha</Label>
                 <div className="relative">
                   <Input
                     id="confirmPassword"
@@ -345,7 +351,7 @@ export default function UserProfileModal({ isOpen, onClose }: UserProfileModalPr
                     onChange={(e) => setPasswordData({ ...passwordData, confirmPassword: e.target.value })}
                     required
                     disabled={loading}
-                    className="pr-10"
+                    className="pr-10 text-sm"
                   />
                   <button
                     type="button"
@@ -359,18 +365,20 @@ export default function UserProfileModal({ isOpen, onClose }: UserProfileModalPr
               
               <Button
                 type="submit"
-                className="w-full"
+                className="w-full text-sm"
                 disabled={loading}
               >
                 {loading ? (
                   <div className="flex items-center gap-2">
                     <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                    Alterando...
+                    <span className="hidden sm:inline">Alterando Senha...</span>
+                    <span className="sm:hidden">Alterando...</span>
                   </div>
                 ) : (
                   <div className="flex items-center gap-2">
-                    <Lock className="h-4 w-4" />
-                    Alterar Senha
+                    <Lock className="h-3 w-3 sm:h-4 sm:w-4" />
+                    <span className="hidden sm:inline">Alterar Senha</span>
+                    <span className="sm:hidden">Alterar</span>
                   </div>
                 )}
               </Button>

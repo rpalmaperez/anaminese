@@ -235,22 +235,23 @@ export default function AnamnesesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gray-50 p-3 sm:p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex justify-between items-center mb-6">
-          <div className="flex items-center gap-4">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6 gap-3 sm:gap-4">
+          <div className="flex items-center gap-2 sm:gap-4 w-full sm:w-auto">
             <Button
               variant="outline"
               onClick={() => router.push('/dashboard')}
-              className="flex items-center gap-2"
+              className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm px-2 sm:px-4 py-1 sm:py-2"
             >
-              <ArrowLeft className="h-4 w-4" />
-              Dashboard
+              <ArrowLeft className="h-3 w-3 sm:h-4 sm:w-4" />
+              <span className="hidden sm:inline">Dashboard</span>
+              <span className="sm:hidden">Voltar</span>
             </Button>
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Anamneses</h1>
-              <p className="text-gray-600 mt-1">
+            <div className="flex-1 sm:flex-none">
+              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">Anamneses</h1>
+              <p className="text-gray-600 mt-1 text-xs sm:text-sm hidden sm:block">
                 Gerencie todas as anamneses do sistema
               </p>
             </div>
@@ -258,96 +259,97 @@ export default function AnamnesesPage() {
           {hasPermission('create_anamnesis') && (
             <Button 
               onClick={() => router.push('/anamneses/new')}
-              className="flex items-center gap-2"
+              className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm px-3 sm:px-4 py-2 w-full sm:w-auto justify-center"
             >
-              <Plus className="h-4 w-4" />
-              Nova Anamnese
+              <Plus className="h-3 w-3 sm:h-4 sm:w-4" />
+              <span className="sm:hidden">Nova</span>
+              <span className="hidden sm:inline">Nova Anamnese</span>
             </Button>
           )}
         </div>
 
         {error && (
-          <Alert variant="destructive" className="mb-6">
-            <AlertDescription>{error}</AlertDescription>
+          <Alert variant="destructive" className="mb-4 sm:mb-6">
+            <AlertDescription className="text-xs sm:text-sm">{error}</AlertDescription>
           </Alert>
         )}
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-6 mb-4 sm:mb-6">
           <Card>
-            <CardContent className="p-6">
+            <CardContent className="p-3 sm:p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Total</p>
-                  <p className="text-2xl font-bold text-gray-900">{stats.total}</p>
+                  <p className="text-xs sm:text-sm font-medium text-gray-600">Total</p>
+                  <p className="text-lg sm:text-2xl font-bold text-gray-900">{stats.total}</p>
                 </div>
-                <FileText className="h-8 w-8 text-blue-600" />
+                <FileText className="h-5 w-5 sm:h-8 sm:w-8 text-blue-600" />
               </div>
             </CardContent>
           </Card>
 
           <Card>
-            <CardContent className="p-6">
+            <CardContent className="p-3 sm:p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Ativas</p>
-                  <p className="text-2xl font-bold text-green-600">{stats.active}</p>
+                  <p className="text-xs sm:text-sm font-medium text-gray-600">Ativas</p>
+                  <p className="text-lg sm:text-2xl font-bold text-green-600">{stats.active}</p>
                 </div>
-                <CheckCircle className="h-8 w-8 text-green-600" />
+                <CheckCircle className="h-5 w-5 sm:h-8 sm:w-8 text-green-600" />
               </div>
             </CardContent>
           </Card>
 
           <Card>
-            <CardContent className="p-6">
+            <CardContent className="p-3 sm:p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Expirando</p>
-                  <p className="text-2xl font-bold text-yellow-600">{stats.expiring}</p>
+                  <p className="text-xs sm:text-sm font-medium text-gray-600">Expirando</p>
+                  <p className="text-lg sm:text-2xl font-bold text-yellow-600">{stats.expiring}</p>
                 </div>
-                <AlertTriangle className="h-8 w-8 text-yellow-600" />
+                <AlertTriangle className="h-5 w-5 sm:h-8 sm:w-8 text-yellow-600" />
               </div>
             </CardContent>
           </Card>
 
-          <Card>
-            <CardContent className="p-6">
+          <Card className="col-span-2 sm:col-span-1">
+            <CardContent className="p-3 sm:p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Expiradas</p>
-                  <p className="text-2xl font-bold text-red-600">{stats.expired}</p>
+                  <p className="text-xs sm:text-sm font-medium text-gray-600">Expiradas</p>
+                  <p className="text-lg sm:text-2xl font-bold text-red-600">{stats.expired}</p>
                 </div>
-                <XCircle className="h-8 w-8 text-red-600" />
+                <XCircle className="h-5 w-5 sm:h-8 sm:w-8 text-red-600" />
               </div>
             </CardContent>
           </Card>
 
-          <Card>
-            <CardContent className="p-6">
+          <Card className="col-span-2 sm:col-span-3 lg:col-span-1">
+            <CardContent className="p-3 sm:p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Rascunhos</p>
-                  <p className="text-2xl font-bold text-gray-600">{stats.drafts}</p>
+                  <p className="text-xs sm:text-sm font-medium text-gray-600">Rascunhos</p>
+                  <p className="text-lg sm:text-2xl font-bold text-gray-600">{stats.drafts}</p>
                 </div>
-                <Edit className="h-8 w-8 text-gray-600" />
+                <Edit className="h-5 w-5 sm:h-8 sm:w-8 text-gray-600" />
               </div>
             </CardContent>
           </Card>
         </div>
 
         {/* Filters */}
-        <Card className="mb-6">
-          <CardContent className="p-6">
-            <div className="flex flex-col lg:flex-row gap-4">
+        <Card className="mb-4 sm:mb-6">
+          <CardContent className="p-3 sm:p-6">
+            <div className="flex flex-col gap-3 sm:gap-4">
               <div className="flex-1">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-3 w-3 sm:h-4 sm:w-4" />
                   <Input
                     type="text"
-                    placeholder="Buscar por título, aluno, observações..."
+                    placeholder="Buscar por título, aluno..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10"
+                    className="pl-8 sm:pl-10 text-xs sm:text-sm"
                   />
                 </div>
               </div>
@@ -357,7 +359,7 @@ export default function AnamnesesPage() {
                   <select
                     value={statusFilter}
                     onChange={(e) => setStatusFilter(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-2 sm:px-3 py-2 text-xs sm:text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
                     <option value="all">Todos os Status</option>
                     <option value="draft">Rascunho</option>
@@ -371,7 +373,7 @@ export default function AnamnesesPage() {
                   <select
                     value={dateFilter}
                     onChange={(e) => setDateFilter(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-2 sm:px-3 py-2 text-xs sm:text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
                     <option value="all">Todas as Datas</option>
                     <option value="today">Hoje</option>
@@ -387,30 +389,30 @@ export default function AnamnesesPage() {
         {/* Anamneses List */}
         {filteredAnamneses.length === 0 ? (
           <Card>
-            <CardContent className="p-12 text-center">
-              <FileText className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
+            <CardContent className="p-6 sm:p-12 text-center">
+              <FileText className="h-8 w-8 sm:h-12 sm:w-12 text-gray-400 mx-auto mb-4" />
+              <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-2">
                 {searchTerm || statusFilter !== 'all' || dateFilter !== 'all'
                   ? 'Nenhuma anamnese encontrada' 
                   : 'Nenhuma anamnese cadastrada'
                 }
               </h3>
-              <p className="text-gray-600 mb-4">
+              <p className="text-gray-600 mb-4 text-sm sm:text-base">
                 {searchTerm || statusFilter !== 'all' || dateFilter !== 'all'
                   ? 'Tente ajustar os filtros de busca'
                   : 'Comece criando a primeira anamnese do sistema'
                 }
               </p>
               {(!searchTerm && statusFilter === 'all' && dateFilter === 'all') && hasPermission('create_anamnesis') && (
-                <Button onClick={() => router.push('/anamneses/new')}>
-                  <Plus className="h-4 w-4 mr-2" />
+                <Button onClick={() => router.push('/anamneses/new')} className="text-xs sm:text-sm">
+                  <Plus className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
                   Criar Primeira Anamnese
                 </Button>
               )}
             </CardContent>
           </Card>
         ) : (
-          <div className="grid gap-4">
+          <div className="grid gap-3 sm:gap-4">
             {filteredAnamneses.map((anamnesis) => {
               const statusInfo = getStatusInfo(anamnesis.status);
               const StatusIcon = statusInfo.icon;
@@ -418,46 +420,46 @@ export default function AnamnesesPage() {
               
               return (
                 <Card key={anamnesis.id} className="hover:shadow-md transition-shadow">
-                  <CardContent className="p-6">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-3">
-                          <h3 className="text-lg font-semibold text-gray-900">
+                  <CardContent className="p-3 sm:p-6">
+                    <div className="flex flex-col sm:flex-row items-start justify-between gap-3 sm:gap-0">
+                      <div className="flex-1 w-full">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-3">
+                          <h3 className="text-base sm:text-lg font-semibold text-gray-900 break-words">
                             {anamnesis.title || `Anamnese ${formatDate(anamnesis.created_at)}` || `Anamnese ${formatDate(anamnesis.created_at)}`}
                           </h3>
-                          <span className={`px-2 py-1 text-xs font-medium rounded-full flex items-center gap-1 ${statusInfo.color}`}>
+                          <span className={`px-2 py-1 text-xs font-medium rounded-full flex items-center gap-1 w-fit ${statusInfo.color}`}>
                             <StatusIcon className="h-3 w-3" />
                             {statusInfo.label}
                           </span>
                         </div>
                         
                         <div className="flex items-center gap-2 mb-3">
-                          <User className="h-4 w-4 text-gray-400" />
-                          <span className="text-sm font-medium text-gray-900">
+                          <User className="h-3 w-3 sm:h-4 sm:w-4 text-gray-400 flex-shrink-0" />
+                          <span className="text-xs sm:text-sm font-medium text-gray-900 break-words">
                             {anamnesis.student.name}
                           </span>
                           {anamnesis.student.email && (
-                            <span className="text-sm text-gray-600">
+                            <span className="text-xs sm:text-sm text-gray-600 hidden sm:inline break-words">
                               ({anamnesis.student.email})
                             </span>
                           )}
                         </div>
                         
                         {anamnesis.notes && (
-                          <p className="text-gray-600 text-sm mb-3 line-clamp-2">
+                          <p className="text-gray-600 text-xs sm:text-sm mb-3 line-clamp-2">
                             {anamnesis.notes || ""}
                           </p>
                         )}
                         
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600">
                           <div className="flex items-center gap-2">
-                            <Calendar className="h-4 w-4" />
-                            <span>Criada em {formatDate(anamnesis.created_at)}</span>
+                            <Calendar className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
+                            <span className="truncate">Criada em {formatDate(anamnesis.created_at)}</span>
                           </div>
                           
                           <div className="flex items-center gap-2">
-                            <Clock className="h-4 w-4" />
-                            <span>
+                            <Clock className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
+                            <span className="truncate">
                               {anamnesis.status === 'expired' 
                                 ? 'Expirou'
                                 : anamnesis.status === 'completed' && anamnesis.expires_at && new Date(anamnesis.expires_at) < new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
@@ -467,9 +469,9 @@ export default function AnamnesesPage() {
                             </span>
                           </div>
                           
-                          <div className="flex items-center gap-2">
-                            <User className="h-4 w-4" />
-                            <span>Por {anamnesis.created_by_user.name}</span>
+                          <div className="flex items-center gap-2 col-span-1 sm:col-span-2 lg:col-span-1">
+                            <User className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
+                            <span className="truncate">Por {anamnesis.created_by_user.name}</span>
                           </div>
                         </div>
                         
@@ -480,13 +482,15 @@ export default function AnamnesesPage() {
                         )}
                       </div>
                       
-                      <div className="flex items-center gap-2 ml-4">
+                      <div className="flex items-center gap-1 sm:gap-2 sm:ml-4 w-full sm:w-auto justify-end">
                         <Button
                           variant="outline"
                           size="sm"
                           onClick={() => router.push(`/anamneses/${anamnesis.id}`)}
+                          className="text-xs sm:text-sm px-2 sm:px-3 py-1 sm:py-2"
                         >
-                          <Eye className="h-4 w-4" />
+                          <Eye className="h-3 w-3 sm:h-4 sm:w-4" />
+                          <span className="ml-1 sm:hidden">Ver</span>
                         </Button>
                         
                         {hasPermission('update_anamnesis') && anamnesis.status !== 'expired' && (
@@ -494,21 +498,22 @@ export default function AnamnesesPage() {
                             variant="outline"
                             size="sm"
                             onClick={() => router.push(`/anamneses/${anamnesis.id}/edit`)}
+                            className="text-xs sm:text-sm px-2 sm:px-3 py-1 sm:py-2"
                           >
-                            <Edit className="h-4 w-4" />
+                            <Edit className="h-3 w-3 sm:h-4 sm:w-4" />
+                            <span className="ml-1 sm:hidden">Editar</span>
                           </Button>
                         )}
-                        
-
                         
                         {hasPermission('delete_anamnesis') && (
                           <Button
                             variant="outline"
                             size="sm"
                             onClick={() => setDeleteConfirm({ show: true, anamnesis })}
-                            className="text-red-600 hover:text-red-700 hover:border-red-300"
+                            className="text-red-600 hover:text-red-700 hover:border-red-300 text-xs sm:text-sm px-2 sm:px-3 py-1 sm:py-2"
                           >
-                            <Trash2 className="h-4 w-4" />
+                            <Trash2 className="h-3 w-3 sm:h-4 sm:w-4" />
+                            <span className="ml-1 sm:hidden">Excluir</span>
                           </Button>
                         )}
                       </div>
@@ -522,28 +527,29 @@ export default function AnamnesesPage() {
         
         {/* Delete Confirmation Modal */}
         {deleteConfirm.show && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-lg p-4 sm:p-6 max-w-md w-full">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-4">
                 Confirmar Exclusão
               </h3>
-              <p className="text-gray-600 mb-6">
+              <p className="text-gray-600 mb-6 text-xs sm:text-sm">
                 Tem certeza que deseja excluir a anamnese "{deleteConfirm.anamnesis?.title || `Anamnese ${formatDate(deleteConfirm.anamnesis?.created_at || '')}` || 'esta anamnese'}"?
                 <br /><br />
                 <strong>Esta ação não pode ser desfeita.</strong>
               </p>
-              <div className="flex gap-3 justify-end">
+              <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 sm:justify-end">
                 <Button
                   variant="outline"
                   onClick={() => setDeleteConfirm({ show: false, anamnesis: null })}
                   disabled={deleting}
+                  className="text-xs sm:text-sm w-full sm:w-auto"
                 >
                   Cancelar
                 </Button>
                 <Button
                   onClick={handleDeleteAnamnesis}
                   disabled={deleting}
-                  className="bg-red-600 hover:bg-red-700 text-white"
+                  className="bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm w-full sm:w-auto"
                 >
                   {deleting ? 'Excluindo...' : 'Excluir'}
                 </Button>

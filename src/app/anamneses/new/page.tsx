@@ -296,51 +296,52 @@ export default function NewAnamnesisPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gray-50 p-2 sm:p-4 lg:p-6">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <div className="flex items-center gap-4 mb-6">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
           <Button
             variant="outline"
             onClick={() => router.back()}
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 text-sm"
           >
-            <ArrowLeft className="h-4 w-4" />
-            Voltar
+            <ArrowLeft className="h-3 w-3 sm:h-4 sm:w-4" />
+            <span className="hidden xs:inline">Voltar</span>
+            <span className="xs:hidden">←</span>
           </Button>
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Nova Anamnese</h1>
-            <p className="text-gray-600 mt-1">
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">Nova Anamnese</h1>
+            <p className="text-sm sm:text-base text-gray-600 mt-1">
               Preencha as informações da anamnese
             </p>
           </div>
         </div>
 
         {error && (
-          <Alert variant="destructive" className="mb-6">
+          <Alert variant="destructive" className="mb-4 sm:mb-6">
             <AlertCircle className="h-4 w-4" />
-            <AlertDescription>{error}</AlertDescription>
+            <AlertDescription className="text-sm">{error}</AlertDescription>
           </Alert>
         )}
 
         {success && (
-          <Alert className="mb-6 border-green-200 bg-green-50">
+          <Alert className="mb-4 sm:mb-6 border-green-200 bg-green-50">
             <CheckCircle className="h-4 w-4 text-green-600" />
-            <AlertDescription className="text-green-800">{success}</AlertDescription>
+            <AlertDescription className="text-green-800 text-sm">{success}</AlertDescription>
           </Alert>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
           {/* Informações Básicas */}
           <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <FileText className="h-5 w-5" />
+            <CardHeader className="px-4 sm:px-6 py-3 sm:py-4">
+              <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+                <FileText className="h-4 w-4 sm:h-5 sm:w-5" />
                 Informações Básicas
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <CardContent className="space-y-3 sm:space-y-4 px-4 sm:px-6 pb-4 sm:pb-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Aluno *
@@ -349,7 +350,7 @@ export default function NewAnamnesisPage() {
                     value={formData.student_id}
                     onValueChange={(value) => handleInputChange('student_id', value)}
                   >
-                    <SelectTrigger className={errors.student_id ? 'border-red-500' : ''}>
+                    <SelectTrigger className={`text-sm ${errors.student_id ? 'border-red-500' : ''}`}>
                       <SelectValue placeholder="Selecione um aluno">
                         {formData.student_id ? (
                           students.find(s => s.id === formData.student_id)?.name || 'Aluno não encontrado'
@@ -360,14 +361,19 @@ export default function NewAnamnesisPage() {
                     </SelectTrigger>
                     <SelectContent>
                       {students.map((student) => (
-                        <SelectItem key={student.id} value={student.id}>
-                          {student.name} {student.email && `(${student.email})`}
+                        <SelectItem key={student.id} value={student.id} className="text-sm">
+                          <div className="flex flex-col">
+                            <span>{student.name}</span>
+                            {student.email && (
+                              <span className="text-xs text-gray-500 hidden sm:inline">{student.email}</span>
+                            )}
+                          </div>
                         </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
                   {errors.student_id && (
-                    <p className="text-red-500 text-sm mt-1">{errors.student_id}</p>
+                    <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.student_id}</p>
                   )}
                 </div>
 
@@ -381,13 +387,14 @@ export default function NewAnamnesisPage() {
                     onChange={(e) => handleInputChange('title', e.target.value)}
                     placeholder="Ex: Anamnese Inicial - Janeiro 2024"
                     error={errors.title}
+                    className="text-sm"
                   />
                   {errors.title && (
-                    <p className="text-red-500 text-sm mt-1">{errors.title}</p>
+                    <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.title}</p>
                   )}
                 </div>
 
-                <div>
+                <div className="lg:col-span-1">
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Status *
                   </label>
@@ -395,17 +402,17 @@ export default function NewAnamnesisPage() {
                     value={formData.status}
                     onValueChange={(value) => handleInputChange('status', value as 'draft' | 'completed')}
                   >
-                    <SelectTrigger>
+                    <SelectTrigger className="text-sm">
                       <SelectValue placeholder="Selecione o status">
                         {formData.status === 'draft' ? 'Rascunho' : 'Completa'}
                       </SelectValue>
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="draft">Rascunho</SelectItem>
-                      <SelectItem value="completed">Completa</SelectItem>
+                      <SelectItem value="draft" className="text-sm">Rascunho</SelectItem>
+                      <SelectItem value="completed" className="text-sm">Completa</SelectItem>
                     </SelectContent>
                   </Select>
-                  <p className="text-sm text-gray-500 mt-1">
+                  <p className="text-xs text-gray-500 mt-1">
                     Rascunho: pode ser editado posteriormente. Completa: anamnese finalizada.
                   </p>
                 </div>
@@ -420,7 +427,7 @@ export default function NewAnamnesisPage() {
                   onChange={(e) => handleInputChange('notes', e.target.value)}
                   placeholder="Observações gerais sobre a anamnese..."
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                 />
               </div>
             </CardContent>
@@ -428,10 +435,10 @@ export default function NewAnamnesisPage() {
 
           {/* Histórico Médico */}
           <Card>
-            <CardHeader>
-              <CardTitle>Histórico Médico</CardTitle>
+            <CardHeader className="px-4 sm:px-6 py-3 sm:py-4">
+              <CardTitle className="text-base sm:text-lg">Histórico Médico</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-3 sm:space-y-4 px-4 sm:px-6 pb-4 sm:pb-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Condições Médicas
@@ -441,11 +448,11 @@ export default function NewAnamnesisPage() {
                   onChange={(e) => handleInputChange('medical_conditions', e.target.value)}
                   placeholder="Descreva condições médicas existentes..."
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                 />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Medicamentos em Uso
@@ -455,7 +462,7 @@ export default function NewAnamnesisPage() {
                     onChange={(e) => handleInputChange('medications', e.target.value)}
                     placeholder="Liste medicamentos e dosagens..."
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                   />
                 </div>
 
@@ -468,12 +475,12 @@ export default function NewAnamnesisPage() {
                     onChange={(e) => handleInputChange('allergies', e.target.value)}
                     placeholder="Descreva alergias conhecidas..."
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                   />
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Cirurgias Anteriores
@@ -483,7 +490,7 @@ export default function NewAnamnesisPage() {
                     onChange={(e) => handleInputChange('surgeries', e.target.value)}
                     placeholder="Descreva cirurgias realizadas..."
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                   />
                 </div>
 
@@ -496,7 +503,7 @@ export default function NewAnamnesisPage() {
                     onChange={(e) => handleInputChange('hospitalizations', e.target.value)}
                     placeholder="Descreva internações anteriores..."
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                   />
                 </div>
               </div>
@@ -505,12 +512,12 @@ export default function NewAnamnesisPage() {
 
           {/* Histórico Familiar */}
           <Card>
-            <CardHeader>
-              <CardTitle>Histórico Familiar</CardTitle>
+            <CardHeader className="px-4 sm:px-6 py-3 sm:py-4">
+              <CardTitle className="text-base sm:text-lg">Histórico Familiar</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="px-4 sm:px-6 pb-4 sm:pb-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                   Histórico Médico Familiar
                 </label>
                 <textarea
@@ -518,7 +525,7 @@ export default function NewAnamnesisPage() {
                   onChange={(e) => handleInputChange('family_medical_history', e.target.value)}
                   placeholder="Descreva histórico médico de familiares..."
                   rows={4}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-2 sm:px-3 py-2 text-xs sm:text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                 />
               </div>
             </CardContent>
@@ -526,13 +533,13 @@ export default function NewAnamnesisPage() {
 
           {/* Dados Físicos */}
           <Card>
-            <CardHeader>
-              <CardTitle>Dados Físicos</CardTitle>
+            <CardHeader className="px-4 sm:px-6 py-3 sm:py-4">
+              <CardTitle className="text-base sm:text-lg">Dados Físicos</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <CardContent className="px-4 sm:px-6 pb-4 sm:pb-6 space-y-3 sm:space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                     Peso (kg) *
                   </label>
                   <Input
@@ -551,11 +558,12 @@ export default function NewAnamnesisPage() {
                       }
                     }}
                     placeholder="Ex: 70.5"
+                    className="text-xs sm:text-sm"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                     Altura (cm) *
                   </label>
                   <Input
@@ -573,11 +581,12 @@ export default function NewAnamnesisPage() {
                       }
                     }}
                     placeholder="Ex: 175"
+                    className="text-xs sm:text-sm"
                   />
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                <div className="sm:col-span-2 lg:col-span-1">
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                     IMC
                   </label>
                   <Input
@@ -585,11 +594,11 @@ export default function NewAnamnesisPage() {
                     step="0.1"
                     value={formData.bmi || ''}
                     readOnly
-                    className="bg-gray-50"
+                    className="bg-gray-50 text-xs sm:text-sm"
                     placeholder="Calculado automaticamente"
                   />
                   {formData.bmi > 0 && (
-                    <p className="text-sm mt-1 text-gray-600">
+                    <p className="text-xs sm:text-sm mt-1 text-gray-600">
                       {formData.bmi < 18.5 && 'Abaixo do peso'}
                       {formData.bmi >= 18.5 && formData.bmi < 25 && 'Peso normal'}
                       {formData.bmi >= 25 && formData.bmi < 30 && 'Sobrepeso'}
@@ -603,13 +612,13 @@ export default function NewAnamnesisPage() {
 
           {/* Estilo de Vida */}
           <Card>
-            <CardHeader>
-              <CardTitle>Estilo de Vida</CardTitle>
+            <CardHeader className="px-4 sm:px-6 py-3 sm:py-4">
+              <CardTitle className="text-base sm:text-lg">Estilo de Vida</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <CardContent className="px-4 sm:px-6 pb-4 sm:pb-6 space-y-3 sm:space-y-4">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                     Atividade Física
                   </label>
                   <textarea
@@ -617,12 +626,12 @@ export default function NewAnamnesisPage() {
                     onChange={(e) => handleInputChange('physical_activity', e.target.value)}
                     placeholder="Descreva atividades físicas praticadas..."
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-2 sm:px-3 py-2 text-xs sm:text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                     Hábitos Alimentares
                   </label>
                   <textarea
@@ -630,14 +639,14 @@ export default function NewAnamnesisPage() {
                     onChange={(e) => handleInputChange('diet_habits', e.target.value)}
                     placeholder="Descreva hábitos alimentares..."
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-2 sm:px-3 py-2 text-xs sm:text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                   />
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                     Padrão de Sono
                   </label>
                   <textarea
@@ -645,12 +654,12 @@ export default function NewAnamnesisPage() {
                     onChange={(e) => handleInputChange('sleep_pattern', e.target.value)}
                     placeholder="Descreva padrão de sono..."
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-2 sm:px-3 py-2 text-xs sm:text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                     Hábitos de Fumo
                   </label>
                   <textarea
@@ -658,12 +667,12 @@ export default function NewAnamnesisPage() {
                     onChange={(e) => handleInputChange('smoking_habits', e.target.value)}
                     placeholder="Descreva hábitos de fumo..."
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-2 sm:px-3 py-2 text-xs sm:text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                   />
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                <div className="sm:col-span-2 lg:col-span-1">
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                     Consumo de Álcool
                   </label>
                   <textarea
@@ -671,7 +680,7 @@ export default function NewAnamnesisPage() {
                     onChange={(e) => handleInputChange('alcohol_consumption', e.target.value)}
                     placeholder="Descreva consumo de álcool..."
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-2 sm:px-3 py-2 text-xs sm:text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                   />
                 </div>
               </div>
@@ -680,13 +689,13 @@ export default function NewAnamnesisPage() {
 
           {/* Condição Atual */}
           <Card>
-            <CardHeader>
-              <CardTitle>Condição Atual</CardTitle>
+            <CardHeader className="px-4 sm:px-6 py-3 sm:py-4">
+              <CardTitle className="text-base sm:text-lg">Condição Atual</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <CardContent className="px-4 sm:px-6 pb-4 sm:pb-6 space-y-3 sm:space-y-4">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                     Sintomas Atuais
                   </label>
                   <textarea
@@ -694,12 +703,12 @@ export default function NewAnamnesisPage() {
                     onChange={(e) => handleInputChange('current_symptoms', e.target.value)}
                     placeholder="Descreva sintomas atuais..."
                     rows={4}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-2 sm:px-3 py-2 text-xs sm:text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                     Escala de Dor (0-10)
                   </label>
                   <Input
@@ -709,25 +718,24 @@ export default function NewAnamnesisPage() {
                     value={formData.pain_scale}
                     onChange={(e) => handleInputChange('pain_scale', parseInt(e.target.value) || 0)}
                     error={errors.pain_scale}
+                    className="text-xs sm:text-sm"
                   />
                   {errors.pain_scale && (
-                    <p className="text-red-500 text-sm mt-1">{errors.pain_scale}</p>
+                    <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.pain_scale}</p>
                   )}
                 </div>
               </div>
             </CardContent>
           </Card>
 
-
-
           {/* Observações Adicionais */}
           <Card>
-            <CardHeader>
-              <CardTitle>Observações Adicionais</CardTitle>
+            <CardHeader className="px-4 sm:px-6 py-3 sm:py-4">
+              <CardTitle className="text-base sm:text-lg">Observações Adicionais</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="px-4 sm:px-6 pb-4 sm:pb-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                   Observações Adicionais
                 </label>
                 <textarea
@@ -735,7 +743,7 @@ export default function NewAnamnesisPage() {
                   onChange={(e) => handleInputChange('additional_notes', e.target.value)}
                   placeholder="Adicione qualquer informação adicional relevante..."
                   rows={4}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-2 sm:px-3 py-2 text-xs sm:text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                 />
               </div>
             </CardContent>
@@ -758,7 +766,7 @@ export default function NewAnamnesisPage() {
             >
               {loading ? (
                 <>
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                  <div className="animate-spin rounded-full h-4 w-4"></div>
                   Salvando...
                 </>
               ) : (
